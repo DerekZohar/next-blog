@@ -6,10 +6,16 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    // colors: {
+    //   transparent: "transparent",
+    //   current: "currentColor",
+    //   blue: {
+    //     650: "#0070f3",
+    //   },
+    // },
   },
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/line-clamp")],
 };
