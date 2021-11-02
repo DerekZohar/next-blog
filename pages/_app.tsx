@@ -1,10 +1,13 @@
 import "../styles/globals.scss";
 import type { AppProps } from "next/app";
-import Navbar from "app/components/organisms/Navbar";
+import VerticalNav from "app/components/modules/VerticalNav";
+import Navbar from "app/components/modules/Navbar";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div className="bg-gray-100">
+    <div>
+      <Navbar />
+      <VerticalNav />
       <Component {...pageProps} />
     </div>
   );

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "./components/nav";
+@import "./components/home";
 
 @layer components {
   .ease-in-trans {
@@ -10,11 +10,15 @@
   }
 }
 
-.tab {
-  @apply flex gap-2 items-center px-4 py-4 text-gray-500 font-medium hover:text-white hover:bg-blue-600
-  rounded-xl ease-in-trans cursor-pointer;
+.box-shadow {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
-.tab--active {
-  @apply text-white bg-blue-600;
+.tab {
+  @apply h-12 w-12 rounded-xl p-3 text-gray-500 cursor-pointer ease-in-trans;
+
+  &--active,
+  &:hover {
+    @apply bg-blue-50 text-blue-600;
+  }
 }
