@@ -1,10 +1,15 @@
+import router from "next/dist/client/router";
 import React from "react";
-
 export default function Navbar() {
   return (
     <div className="w-full flex items-center justify-between px-14 py-4">
       <div className="flex items-center">
-        <img src="/logo.png" alt="Logo" className="h-14 w-14 cursor-pointer" />
+        <img
+          src="/logo.png"
+          alt="Logo"
+          className="h-14 w-14 cursor-pointer"
+          onClick={() => router.push("/")}
+        />
         <div
           className="flex items-center h-10 w-[400px] px-4  gap-4 ml-24
       border border-gray-200 rounded-full bg-gray-50
