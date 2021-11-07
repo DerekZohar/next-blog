@@ -1,5 +1,4 @@
 import { blogAPI } from "app/api/modules/blogAPI";
-import { imageAPI } from "app/api/modules/imageAPI";
 import BlogTagSelection from "app/components/modules/BlogTagSelection";
 import { useFormik } from "formik";
 import dynamic from "next/dynamic";
@@ -7,16 +6,29 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Select from "react-select";
 
-const FroalaEditorComponent: React.ComponentType<any> = dynamic(
-  () => {
-    return new Promise((resolve) =>
-      import("froala-editor/js/plugins.pkgd.min.js").then((e) => {
-        import("react-froala-wysiwyg").then(resolve);
-      })
-    );
+// const FroalaEditorComponent: React.ComponentType<any> = dynamic(
+//   () => {
+//     return new Promise((resolve) =>
+//       import("froala-editor/js/plugins.pkgd.min.js").then((e) => {
+//         import("react-froala-wysiwyg").then(resolve);
+//       })
+//     );
+//   },
+//   {
+//     loading: () => null,
+//     ssr: false,
+//   }
+// );
+const FroalaEditorComponent = dynamic(
+  async () => {
+    const values = await Promise.all([
+      import("react-froala-wysiwyg"), // must be first import since we are doing values[0] in return
+      import("froala-editor/js/plugins/image.min.js"),
+    ]);
+    return values[0];
   },
   {
-    loading: () => null,
+    loading: () => <p>LOADING!!!</p>,
     ssr: false,
   }
 );

@@ -1,13 +1,24 @@
+import { blogAPI } from "app/api/modules/blogAPI";
 import BlogCard from "app/components/atoms/BlogCard";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Home() {
-  // list has 10 items
-  const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const user = useSelector((state: any) => state.user);
+  const [blogs, setBlogs] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await blogAPI.getAllBlogs({});
+      if (res.status === 200) {
+        setBlogs(res.data);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="grid grid-cols-3 gap-16">
-      {list.map((item, index) => (
+      {blogs.map((item, index) => (
         <BlogCard
           key={index}
           imageUrl="https://source.unsplash.com/random"

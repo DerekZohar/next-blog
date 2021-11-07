@@ -1,5 +1,7 @@
+import { logout } from "app/redux/features/user";
 import { useRouter } from "next/dist/client/router";
 import React from "react";
+import { useDispatch } from "react-redux";
 
 // const VerticalNavItem = () => {
 //   return (
@@ -8,7 +10,14 @@ import React from "react";
 // };
 
 export default function VerticalNav() {
+  const dispatch = useDispatch();
   const router = useRouter();
+
+  const handleLogout = () => {
+    //clear cookie
+    document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    // dispatch(logout());
+  };
   return (
     <div
       className="fixed left-10 top-40 h-[400px] w-20 
@@ -53,6 +62,22 @@ export default function VerticalNav() {
           className="h-12 w-12 p-2 text-gray-500"
         >
           <path d="M21.546 11.646 19 9.101V5.5a.5.5 0 0 0-.5-.5h-3.601l-2.546-2.546a.5.5 0 0 0-.707 0L9.101 5H5.5a.5.5 0 0 0-.5.5v3.601l-2.546 2.546a.5.5 0 0 0 0 .707L5 14.899V18.5a.5.5 0 0 0 .5.5h3.601l2.546 2.546a.5.5 0 0 0 .707 0L14.899 19H18.5a.5.5 0 0 0 .5-.5v-3.601l2.546-2.546a.5.5 0 0 0 0-.707zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"></path>
+        </svg>
+        {/* icon logout */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-8 w-8 text-red-600 cursor-pointer"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          onClick={handleLogout}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+          />
         </svg>
       </div>
     </div>

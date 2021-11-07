@@ -185,17 +185,16 @@ export default function BlogDetail() {
             - 30 Jan 2021
           </span>
         </p> */}
-
-        <p className="text-3xl font-bold">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit
-        </p>
-        <AuthorInfo />
       </div>
       <img
         src={"https://source.unsplash.com/random/1000x500"}
         alt=""
         className="w-full h-[500px] rounded-xl object-cover"
       />
+      <p className="text-3xl font-bold">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit
+      </p>
+      <AuthorInfo />
       <Content />
       <div className="w-full flex items-center justify-center">
         <form className="w-full bg-white pt-2">

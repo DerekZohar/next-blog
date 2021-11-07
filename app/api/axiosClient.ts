@@ -2,12 +2,14 @@ import axios from "axios";
 // Set up default config for http requests here
 
 const axiosClient = axios.create({
-  baseURL: "https://jobbucket.azurewebsites.net/",
+  baseURL: "http://localhost:5000",
   headers: {
     "content-type": "application/json",
   },
+  withCredentials: true,
   //   paramsSerializer: (params) => queryString.stringify(params),
 });
+// axios.defaults.withCredentials = true;
 axiosClient.interceptors.request.use(async (config) => {
   // Handle token here ...
   return config;

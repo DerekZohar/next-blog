@@ -1,15 +1,17 @@
 import router from "next/dist/client/router";
 import React from "react";
+import Link from "next/link";
 export default function Navbar() {
   return (
     <div className="w-full flex items-center justify-between px-14 py-4">
       <div className="flex items-center">
-        <img
-          src="/logo.png"
-          alt="Logo"
-          className="h-14 w-14 cursor-pointer"
-          onClick={() => router.push("/")}
-        />
+        <Link href="/" passHref>
+          <img
+            src="/logo.png"
+            alt="Logo"
+            className="h-14 w-14 cursor-pointer"
+          />
+        </Link>
         <div
           className="flex items-center h-10 w-[400px] px-4  gap-4 ml-24
       border border-gray-200 rounded-full bg-gray-50
@@ -33,6 +35,29 @@ export default function Navbar() {
         </div>
       </div>
       <div className="flex gap-4">
+        <Link href="/post" passHref>
+          <button
+            className="flex gap-2 items-center
+          py-2 px-4 bg-blue-600 hover:bg-blue-700 
+        text-white transition ease-in duration-200 
+          text-center text-base font-semibold shadow-md focus:outline-none f rounded-full"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                clipRule="evenodd"
+              />
+            </svg>
+            Add new blog
+          </button>
+        </Link>
+
         {/* notification icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
