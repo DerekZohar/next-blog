@@ -1,5 +1,4 @@
 import { blogAPI } from "app/api/modules/blogAPI";
-import { imageAPI } from "app/api/modules/imageAPI";
 import { useFormik } from "formik";
 import dynamic from "next/dynamic";
 import React, { useState } from "react";

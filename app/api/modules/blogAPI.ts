@@ -5,39 +5,22 @@ export const blogAPI = {
   getAllBlogs: (filters) => {
     return axiosClient.post("/blogs/getByFilter", filters);
   },
-  getAllBlogs1: (filters) => {
-    return axios.post("http://localhost:5000/blogs/getByFilter", filters, {
-      withCredentials: true,
-    });
+  getBlogById: (id) => {
+    return axiosClient.get(`/blogs/${id}`);
   },
-  getBlogById: (token, id) => {
-    return axiosClient.get(`/blogs/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  getBookmarkBlogs: (filters) => {
+    return axiosClient.post("/blogs/bookmarks", filters);
   },
-  getBookmarkBlogs: (token, filters) => {
-    return axiosClient.post("/blogs/bookmarks", filters, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  getMyBlogs: (filters) => {
+    return axiosClient.post("/blogs/my", filters);
   },
-  getMyBlogs: (token, filters) => {
-    return axiosClient.post("/blogs/my", filters, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  createBlog: (blog) => {
+    return axiosClient.post("/blogs", blog);
   },
-  createBlog: (token, blog) => {
-    return axiosClient.post("/blogs", blog, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  updateBlog: (id, blog) => {
+    return axiosClient.put(`/blogs/${id}`, blog);
   },
-  updateBlog: (token, id, blog) => {
-    return axiosClient.put(`/blogs/${id}`, blog, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-  },
-  deleteBlog: (token, id) => {
-    return axiosClient.delete(`/blogs/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  deleteBlog: (id) => {
+    return axiosClient.delete(`/blogs/${id}`);
   },
 };

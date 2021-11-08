@@ -10,4 +10,5 @@ export const authAPI = {
   verify: (verifyInput) => {
     return axiosClient.post("/auth/verify-email", verifyInput);
   },
+  resetToken: () => axiosClient.get("/auth/reset-token"),
 };

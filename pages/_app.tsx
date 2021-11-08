@@ -8,6 +8,9 @@ import { useRouter } from "next/dist/client/router";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "app/redux/store";
+import AuthProvider from "app/components/organisms/AuthProvider";
+import { CookiesProvider } from "react-cookie";
+
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
@@ -20,18 +23,22 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <Navbar />
-        {1 ? (
-          <div>
-            <VerticalNav />
-            <div className="pl-52 pr-16">
+        <CookiesProvider>
+          <AuthProvider>
+            <Navbar />
+            {1 ? (
+              <div>
+                <VerticalNav />
+                <div className="pl-52 pr-16">
+                  <Component {...pageProps} />
+                </div>
+              </div>
+            ) : (
               <Component {...pageProps} />
-            </div>
-          </div>
-        ) : (
-          <Component {...pageProps} />
-        )}
-        {/* <div className="h-[500px]"></div> */}
+            )}
+            {/* <div className="h-[500px]"></div> */}
+          </AuthProvider>
+        </CookiesProvider>
       </PersistGate>
     </Provider>
   );

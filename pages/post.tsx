@@ -2,6 +2,7 @@ import { blogAPI } from "app/api/modules/blogAPI";
 import BlogTagSelection from "app/components/modules/BlogTagSelection";
 import { useFormik } from "formik";
 import dynamic from "next/dynamic";
+import router from "next/router";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Select from "react-select";
@@ -34,46 +35,26 @@ const FroalaEditorComponent = dynamic(
 );
 
 export default function AddNewBlog(props) {
-  // const blog = props.blogs[0];
-  // const user = useSelector((state: any) => state.user);
-  // const [content, setContent] = useState(blog.content);
-  // const [imageFile, setImageFile] = useState(null);
-  // const [previewSource, setPreviewSource] = useState(blog.imageUrl);
-  // const handleImageChange = (e) => {
-  //   const file = e.target.files[0];
-  //   setImageFile(file);
-  //   setPreviewSource(URL.createObjectURL(e.target.files[0]));
-  // };
+  const [content, setContent] = useState("");
 
-  // const formik = useFormik({
-  //   initialValues: {
-  //     imageUrl: "",
-  //     title: blog.title,
-  //     description: blog.description,
-  //     content: "",
-  //     tags: [],
-  //   },
-  //   onSubmit: async (values) => {
-  //     const imageRes: any = await imageAPI.uploadImage(imageFile);
-  //     const res = await blogAPI.update(
-  //       {
-  //         id: blog.id,
-  //         ...values,
-  //         imageUrl: imageRes.data.url,
-  //         content,
-  //       },
-  //       user.token
-  //     );
-
-  //     if (res.status === 200) console.log(res);
-  //   },
-  // });
+  const formik = useFormik({
+    initialValues: {
+      title: "",
+      description: "",
+      content: content,
+      tags: [],
+      imageUrl: "",
+    },
+    onSubmit: async (values) => {
+      const res = await blogAPI.createBlog({ ...values, content });
+      if (res.status === 201) {
+        router.push("/" + res.data.id);
+      }
+    },
+  });
 
   return (
-    <form
-      className="flex flex-col gap-4"
-      // onSubmit={formik.handleSubmit}
-    >
+    <form className="flex flex-col gap-4" onSubmit={formik.handleSubmit}>
       {/* <DropFileInput /> */}
 
       {/* <div className="flex justify-between">
@@ -85,8 +66,8 @@ export default function AddNewBlog(props) {
         type="text"
         id="title"
         name="title"
-        // value={formik.values.title}
-        // onChange={formik.handleChange}
+        value={formik.values.title}
+        onChange={formik.handleChange}
         className=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 
         bg-white text-gray-700 placeholder-gray-400 rounded-lg text-base 
         focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparen"
@@ -107,8 +88,8 @@ export default function AddNewBlog(props) {
           id="description"
           placeholder="Enter your description"
           name="description"
-          // value={formik.values.description}
-          // onChange={formik.handleChange}
+          value={formik.values.description}
+          onChange={formik.handleChange}
           rows={5}
           cols={40}
         ></textarea>
@@ -119,8 +100,8 @@ export default function AddNewBlog(props) {
           placeholderText: "Edit Your Content Here!",
           charCounterCount: true,
         }}
-        // model={content}
-        // onModelChange={(model) => setContent(model)}
+        model={content}
+        onModelChange={(model) => setContent(model)}
       />
 
       <button

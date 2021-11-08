@@ -3,10 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    token: "",
-    refreshToken: "",
-    info: {},
+    // token: "",
+    // refreshToken: "",
+    // info: {},
     email: "",
+    roles: [],
   },
   reducers: {
     saveEmail: (state, action) => {
@@ -17,35 +18,24 @@ export const userSlice = createSlice({
       state.email = "";
       return state;
     },
-    getAccessToken: (state, action) => {
-      state.token = action.payload;
-      return state;
-    },
+    // getAccessToken: (state, action) => {
+    //   state.token = action.payload;
+    //   return state;
+    // },
 
     login: (state, action) => {
       state = { ...action.payload };
       return state;
     },
     logout: (state) => {
-      state.info = {};
-      state.token = "";
-      state.refreshToken = "";
-      return state;
-    },
-    updateProfile: (state, action) => {
-      state.info = { ...state.info, ...action.payload };
+      state.email = "";
+      state.roles = [];
+
       return state;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const {
-  saveEmail,
-  removeEmail,
-  login,
-  logout,
-  getAccessToken,
-  updateProfile,
-} = userSlice.actions;
+export const { saveEmail, removeEmail, login, logout } = userSlice.actions;
 export default userSlice.reducer;
