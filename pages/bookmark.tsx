@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useSelector } from "react-redux";
 
-export default function Home() {
+export default function Bookmark() {
   const user = useSelector((state: any) => state.user);
   const [blogs, setBlogs] = useState([]);
   const [page, setPage] = useState(0);
@@ -13,7 +13,11 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await blogAPI.getAllBlogs({ page: 0, size: 10, keyword: "" });
+      const res = await blogAPI.getBookmarkBlogs({
+        page: 0,
+        size: 10,
+        keyword: "",
+      });
       if (res.status === 200) {
         setBlogs(res.data);
       }
@@ -22,7 +26,7 @@ export default function Home() {
   }, []);
 
   const fetchMoreData = async () => {
-    const res = await blogAPI.getAllBlogs({
+    const res = await blogAPI.getBookmarkBlogs({
       page: page + 1,
       size: 10,
       keyword: "",
@@ -34,7 +38,6 @@ export default function Home() {
       setHasMore(res.data.length > 0);
     }
   };
-
   return (
     <div className="relative">
       <InfiniteScroll

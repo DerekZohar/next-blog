@@ -4,9 +4,9 @@ import axiosClient from "../axiosClient";
 export const blogAPI = {
   upVote: (id: string) => axiosClient.post("/blogs/up-vote/" + id),
   unUpVote: (id: string) => axiosClient.delete("/blogs/up-vote/" + id),
+  bookmark: (id: string) => axiosClient.post("/blogs/bookmark/" + id),
+  unBookmark: (id: string) => axiosClient.delete("/blogs/bookmark/" + id),
   getAllBlogs: (filters) => {
-    console.log(filters);
-
     return axiosClient.post("/blogs/all", filters);
   },
   getBlogById: (id) => {
@@ -15,8 +15,8 @@ export const blogAPI = {
   getBookmarkBlogs: (filters) => {
     return axiosClient.post("/blogs/bookmarks", filters);
   },
-  getMyBlogs: (filters) => {
-    return axiosClient.post("/blogs/my", filters);
+  getMyCollection: (filters) => {
+    return axiosClient.post("/blogs/collection", filters);
   },
   createBlog: (blog) => {
     return axiosClient.post("/blogs", blog);

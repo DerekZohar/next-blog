@@ -139,7 +139,6 @@ const useIntersectionObserver = (setActiveId) => {
 const TableOfContents = () => {
   const [activeId, setActiveId] = React.useState();
   const { nestedHeadings } = useHeadingsData();
-  console.log(nestedHeadings);
   useIntersectionObserver(setActiveId);
 
   return (

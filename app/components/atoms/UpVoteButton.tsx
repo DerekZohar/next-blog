@@ -23,12 +23,12 @@ export default function UpVoteButton({ value, hasUpVoted, blogId }) {
     <div
       className={`${
         hasActive ? "text-green-400 " : "text-gray-400"
-      } flex items-center gap-1 group cursor-pointer ease-in-transition`}
+      } flex items-center gap-1 group cursor-pointer`}
       onClick={handleClick}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-8 w-8 p-1 hover:bg-green-100 rounded-lg"
+        className="h-8 w-8 p-1 hover:text-green-400 hover:bg-green-100  rounded-lg"
         viewBox="0 0 24 24"
         fill="currentcolor"
       >

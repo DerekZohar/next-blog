@@ -1,5 +1,6 @@
 import { blogAPI } from "app/api/modules/blogAPI";
 import BlogCard from "app/components/atoms/BlogCard";
+import Loading from "app/components/atoms/Loading";
 import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useSelector } from "react-redux";
@@ -12,7 +13,11 @@ export default function Collection() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await blogAPI.getMyBlogs({ page: 0, size: 10, keyword: "" });
+      const res = await blogAPI.getMyCollection({
+        page: 0,
+        size: 10,
+        keyword: "",
+      });
       if (res.status === 200) {
         setBlogs(res.data);
       }
@@ -21,7 +26,7 @@ export default function Collection() {
   }, []);
 
   const fetchMoreData = async () => {
-    const res = await blogAPI.getMyBlogs({
+    const res = await blogAPI.getMyCollection({
       page: page + 1,
       size: 10,
       keyword: "",
@@ -34,18 +39,12 @@ export default function Collection() {
     }
   };
   return (
-    <div className="">
+    <div className="relative">
       <InfiniteScroll
         dataLength={blogs.length}
         next={fetchMoreData}
         hasMore={hasMore}
-        loader={
-          <div className="flex justify-center">
-            <button className="px-6 py-3 text-sm rounded-md hover:underline bg-gray-50 text-gray-600">
-              Load more blogs...
-            </button>
-          </div>
-        }
+        loader={<Loading />}
         scrollableTarget="scrollableDiv"
         className="grid grid-cols-3 gap-16 p-8"
       >

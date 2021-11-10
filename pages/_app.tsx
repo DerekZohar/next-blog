@@ -27,9 +27,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           <AuthProvider>
             <Navbar />
             {1 ? (
-              <div>
+              <div className="flex">
                 <VerticalNav />
-                <div className="pl-52 pr-16">
+                <div className="pl-52 pr-16 flex-1 w-full">
                   <Component {...pageProps} />
                 </div>
               </div>

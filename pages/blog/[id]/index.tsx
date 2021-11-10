@@ -12,7 +12,6 @@ import { useSelector } from "react-redux";
 //   }
 
 const AuthorInfo = (props) => {
-  console.log(props);
   return (
     <div className="flex flex-row items-center w-[200px]">
       <img
@@ -54,7 +53,6 @@ export default function BlogDetail(props) {
   useEffect(() => {
     const fetchData = async () => {
       const res = await blogAPI.getBlogById(props.id);
-      console.log(res.data);
       setBlogInfo(res.data);
     };
     fetchData();

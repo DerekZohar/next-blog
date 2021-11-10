@@ -16,7 +16,6 @@ export default function VerifyEmail() {
     },
     onSubmit: async (values) => {
       const res = await authAPI.verify(values);
-      console.log(res);
       if (res.status === 200) {
         dispatch(removeEmail());
         Router.push("/login");

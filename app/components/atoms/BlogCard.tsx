@@ -1,4 +1,5 @@
 import React from "react";
+import BookmarkButton from "./BookmarkButton";
 import Tag from "./Tag";
 import UpVoteButton from "./UpVoteButton";
 
@@ -10,6 +11,7 @@ export default function BlogCard({
   description,
   upVotedIds,
   hasUpVoted,
+  hasBookmarked,
 }) {
   return (
     //   w-[350px] h-[360px]
@@ -24,7 +26,7 @@ export default function BlogCard({
       {/* <div className="img-hover-zoom">
         <img src={imageUrl} alt="This zooms-in really well and smooth" />
       </div> */}
-      <div className="p-4 flex flex-col justify-between gap-2">
+      <div className="p-4 h-[216px] flex flex-col justify-between gap-2">
         <p className="uppercase text-xs font-bold text-red-500">{tag}</p>
         <p className="line-clamp-2 text-xl font-semibold h-14">{title}</p>
         <p className="line-clamp-3 text-gray-400 h-18">{description}</p>
@@ -32,7 +34,7 @@ export default function BlogCard({
 
         <div className="w-full flex justify-between">
           <UpVoteButton
-            value={upVotedIds.length}
+            value={upVotedIds === undefined ? 0 : upVotedIds.length}
             hasUpVoted={hasUpVoted}
             blogId={_id}
           />
@@ -50,19 +52,7 @@ export default function BlogCard({
               />
             </svg>
           </div>
-          <div className="hover:bg-yellow-200 text-yellow-400 rounded-lg cursor-pointer">
-            <svg
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8 p-1"
-            >
-              <path
-                d="M7.828 4h8.343a2 2 0 011.996 1.878l.83 13.591a.5.5 0 01-.795.433l-5.608-4.144a1 1 0 00-1.189 0l-5.608 4.144a.5.5 0 01-.796-.433l.83-13.591A2 2 0 017.829 4z"
-                fill="currentcolor"
-                fillRule="evenodd"
-              ></path>
-            </svg>
-          </div>
+          <BookmarkButton hasBookmarked={hasBookmarked} blogId={_id} />
         </div>
       </div>
     </div>

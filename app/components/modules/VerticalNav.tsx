@@ -31,6 +31,7 @@ export default function VerticalNav() {
           className={`${router.pathname === "/" && "tab--active"} tab`}
           viewBox="0 0 20 20"
           fill="currentColor"
+          onClick={() => router.push("/")}
         >
           <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
         </svg>
@@ -39,6 +40,7 @@ export default function VerticalNav() {
           className={`${router.pathname === "/bookmark" && "tab--active"} tab`}
           viewBox="0 0 24 24"
           fill="currentColor"
+          onClick={() => router.push("/bookmark")}
         >
           <path d="M16.999 23V7c0-1.103-.897-2-2-2h-8c-1.103 0-2 .897-2 2v16l6-3.601 6 3.601z"></path>
           <path d="M15.585 3h1.414c1.103 0 2 .897 2 2v10.443l2 2.489V3c0-1.103-.897-2-2-2h-8c-1.103 0-2 .897-2 2h6.586z"></path>
@@ -50,6 +52,7 @@ export default function VerticalNav() {
           } tab`}
           viewBox="0 0 24 24"
           fill="currentColor"
+          onClick={() => router.push("/collection")}
         >
           <path d="M19 10H5c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-8c0-1.103-.897-2-2-2zM5 6h14v2H5zm2-4h10v2H7z"></path>
         </svg>
