@@ -1,4 +1,5 @@
 import { blogAPI } from "app/api/modules/blogAPI";
+import { imageAPI } from "app/api/modules/imageAPI";
 import BlogTagSelection from "app/components/modules/BlogTagSelection";
 import { useFormik } from "formik";
 import dynamic from "next/dynamic";
@@ -36,6 +37,14 @@ const FroalaEditorComponent = dynamic(
 
 export default function AddNewBlog(props) {
   const [content, setContent] = useState("");
+  const [imageFile, setImageFile] = useState(null);
+  const [previewSource, setPreviewSource] = useState("");
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImageFile(file);
+    setPreviewSource(URL.createObjectURL(e.target.files[0]));
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -43,10 +52,15 @@ export default function AddNewBlog(props) {
       description: "",
       content: content,
       tags: [],
-      imageUrl: "",
+      imgUrl: "",
     },
     onSubmit: async (values) => {
-      const res = await blogAPI.createBlog({ ...values, content });
+      const imageRes: any = await imageAPI.uploadImage(imageFile);
+      const res = await blogAPI.createBlog({
+        ...values,
+        content,
+        imgUrl: imageRes.data.url ? imageRes.data.url : "",
+      });
       if (res.status === 201) {
         router.push("/" + res.data.id);
       }
@@ -55,13 +69,6 @@ export default function AddNewBlog(props) {
 
   return (
     <form className="flex flex-col gap-4" onSubmit={formik.handleSubmit}>
-      {/* <DropFileInput /> */}
-
-      {/* <div className="flex justify-between">
-        <div></div>
-      </div> */}
-
-      {/* <BlogTagSelection /> */}
       <input
         type="text"
         id="title"
@@ -75,11 +82,11 @@ export default function AddNewBlog(props) {
       />
       <BlogTagSelection />
       <img
-        src={"https://via.placeholder.com/1225x500"}
+        src={previewSource || "https://via.placeholder.com/1134x160"}
         alt=""
         className="h-[100px] w-[245px] object-cover rounded-lg"
       />
-      <input type="file" />
+      <input type="file" onChange={handleImageChange} />
       <label className="text-gray-700">
         <textarea
           className="flex-1 appearance-none border border-gray-300 w-full py-2 px-4 
