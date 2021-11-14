@@ -10,6 +10,9 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "app/redux/store";
 import AuthProvider from "app/components/organisms/AuthProvider";
 import { CookiesProvider } from "react-cookie";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { GoogleAuthProvider } from "app/components/organisms/GoogleProvider";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -21,26 +24,29 @@ function MyApp({ Component, pageProps }: AppProps) {
     "/verify-email",
   ];
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <CookiesProvider>
-          <AuthProvider>
-            <Navbar />
-            {1 ? (
-              <div className="flex">
-                <VerticalNav />
-                <div className="pl-52 pr-16 flex-1 w-full">
-                  <Component {...pageProps} />
+    <GoogleAuthProvider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <CookiesProvider>
+            <AuthProvider>
+              <ToastContainer />
+              <Navbar />
+              {1 ? (
+                <div className="flex">
+                  <VerticalNav />
+                  <div className="pl-52 pr-16 flex-1 w-full">
+                    <Component {...pageProps} />
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <Component {...pageProps} />
-            )}
-            {/* <div className="h-[500px]"></div> */}
-          </AuthProvider>
-        </CookiesProvider>
-      </PersistGate>
-    </Provider>
+              ) : (
+                <Component {...pageProps} />
+              )}
+              {/* <div className="h-[500px]"></div> */}
+            </AuthProvider>
+          </CookiesProvider>
+        </PersistGate>
+      </Provider>
+    </GoogleAuthProvider>
   );
 }
 export default MyApp;

@@ -1,7 +1,10 @@
 import router from "next/dist/client/router";
 import React from "react";
 import Link from "next/link";
+import { useCookies } from "react-cookie";
+import { useSelector } from "react-redux";
 export default function Navbar() {
+  const user = useSelector((state: any) => state.user);
   return (
     <div className="w-full flex items-center justify-between px-14 py-4">
       <div className="flex items-center">
@@ -59,19 +62,38 @@ export default function Navbar() {
         </Link>
 
         {/* notification icon */}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-10 w-10 p-2 bg-gray-100 rounded-full cursor-pointer"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
-        </svg>
-        <img
-          src="https://c4.wallpaperflare.com/wallpaper/224/829/129/digital-digital-art-artwork-illustration-simple-hd-wallpaper-thumb.jpg"
-          alt="Avatar"
-          className="h-10 w-10 rounded-full object-cover cursor-pointer"
-        />
+
+        {user.accessToken ? (
+          <div className="flex gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-10 w-10 p-2 bg-gray-100 rounded-full cursor-pointer"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
+            </svg>
+            <img
+              src={
+                user.avatarUrl ||
+                "https://c4.wallpaperflare.com/wallpaper/224/829/129/digital-digital-art-artwork-illustration-simple-hd-wallpaper-thumb.jpg"
+              }
+              alt="Avatar"
+              className="h-10 w-10 rounded-full object-cover cursor-pointer"
+            />
+          </div>
+        ) : (
+          <Link href="/login" passHref>
+            <button
+              className="flex gap-2 items-center
+          py-2 px-4 bg-blue-600 hover:bg-blue-700
+        text-white transition ease-in duration-200
+          text-center text-base font-semibold shadow-md focus:outline-none f rounded-full"
+            >
+              Login
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );

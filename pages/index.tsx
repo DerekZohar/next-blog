@@ -13,7 +13,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await blogAPI.getAllBlogs({ page: 0, size: 10, keyword: "" });
+      const res = await blogAPI.getAllBlogs({ page: 0, size: 9, keyword: "" });
       if (res.status === 200) {
         setBlogs(res.data);
       }
@@ -24,7 +24,7 @@ export default function Home() {
   const fetchMoreData = async () => {
     const res = await blogAPI.getAllBlogs({
       page: page + 1,
-      size: 10,
+      size: 9,
       keyword: "",
     });
 
@@ -46,20 +46,7 @@ export default function Home() {
         className="grid grid-cols-3 gap-16 p-8"
       >
         {blogs.map((item, index) => (
-          <BlogCard
-            key={index}
-            {...item}
-            //     imageUrl="https://source.unsplash.com/random"
-            //     tag="Business"
-            //     title="Beautiful CSS box-shadow12333 123 123 123 12 3123 2"
-            //     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-            // tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-            // veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-            // commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-            // velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-            // occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-            // mollit anim id est laborum."
-          />
+          <BlogCard key={index} {...item} />
         ))}
       </InfiniteScroll>
     </div>

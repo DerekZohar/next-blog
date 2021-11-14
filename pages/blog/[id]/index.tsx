@@ -10,8 +10,8 @@ import { useSelector } from "react-redux";
 //     description,
 //     author,
 //   }
-
 const AuthorInfo = (props) => {
+  console.log(props);
   return (
     <div className="flex flex-row items-center w-[200px]">
       <img
@@ -24,14 +24,14 @@ const AuthorInfo = (props) => {
       />
       <div className="flex flex-col">
         <div className="flex gap-2">
-          <p className="text-sm font-bold">
-            <a href="#">{props?.email}</a>
-          </p>
+          <p className="text-sm font-bold text-gray-600">{props?.fullName}</p>
           <button className="px-2 bg-blue-600 text-white text-xs rounded-full">
             Follow+
           </button>
         </div>
-        <p className="text-xs font-bold text-gray-400">Blogs: 7</p>
+        <p className="text-xs font-bold text-gray-400">
+          Blogs: {props.numberOfBlog}
+        </p>
         {/* <p className="text-xs">
           Posted{" "}
           <span className="font-semibold text-gray-600">30 Jan 2021</span>{" "}

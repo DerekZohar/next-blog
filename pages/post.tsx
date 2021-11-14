@@ -1,6 +1,7 @@
 import { blogAPI } from "app/api/modules/blogAPI";
 import { imageAPI } from "app/api/modules/imageAPI";
 import BlogTagSelection from "app/components/modules/BlogTagSelection";
+import ImageSection from "app/components/modules/ImageSection";
 import { useFormik } from "formik";
 import dynamic from "next/dynamic";
 import router from "next/router";
@@ -42,8 +43,10 @@ export default function AddNewBlog(props) {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setImageFile(file);
-    setPreviewSource(URL.createObjectURL(e.target.files[0]));
+    if (file !== undefined) {
+      setImageFile(file);
+      setPreviewSource(URL.createObjectURL(e.target.files[0]));
+    }
   };
 
   const formik = useFormik({
@@ -55,14 +58,24 @@ export default function AddNewBlog(props) {
       imgUrl: "",
     },
     onSubmit: async (values) => {
-      const imageRes: any = await imageAPI.uploadImage(imageFile);
-      const res = await blogAPI.createBlog({
-        ...values,
-        content,
-        imgUrl: imageRes.data.url ? imageRes.data.url : "",
-      });
-      if (res.status === 201) {
-        router.push("/" + res.data.id);
+      if (values.imgUrl === "") {
+        const imageRes: any = await imageAPI.uploadImage(imageFile);
+        const res = await blogAPI.createBlog({
+          ...values,
+          content,
+          imgUrl: imageRes.data.url ? imageRes.data.url : "",
+        });
+        if (res.status === 201) {
+          router.push("/" + res.data.id);
+        }
+      } else {
+        const res = await blogAPI.createBlog({
+          ...values,
+          content,
+        });
+        if (res.status === 201) {
+          router.push("/blog/" + res.data.id);
+        }
       }
     },
   });
@@ -81,12 +94,11 @@ export default function AddNewBlog(props) {
         placeholder="Title"
       />
       <BlogTagSelection />
-      <img
-        src={previewSource || "https://via.placeholder.com/1134x160"}
-        alt=""
-        className="h-[100px] w-[245px] object-cover rounded-lg"
+      <ImageSection
+        previewSource={previewSource}
+        handleImageChange={handleImageChange}
+        formik={formik}
       />
-      <input type="file" onChange={handleImageChange} />
       <label className="text-gray-700">
         <textarea
           className="flex-1 appearance-none border border-gray-300 w-full py-2 px-4 

@@ -1,11 +1,18 @@
 import { authAPI } from "app/api/modules/authAPI";
 import { login } from "app/redux/features/user";
 import { useFormik } from "formik";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
 import router from "next/router";
+import { useCookies } from "react-cookie";
+import { useGoogleAuth } from "app/components/organisms/GoogleProvider";
 export default function LoginPage() {
+  const [cookies, setCookie] = useCookies(["jwt"]);
+  useEffect(() => {
+    if (cookies.jwt !== undefined) router.replace("/");
+  }, []);
+  const [loginFail, setLoginFail] = useState({ status: false, message: "" });
   //use formik to handle form
   const dispatch = useDispatch();
 
@@ -15,13 +22,35 @@ export default function LoginPage() {
       password: "",
     },
     onSubmit: async (values) => {
-      const res = await authAPI.login({ ...values });
-      if (res.status === 200) {
-        dispatch(login(res.data));
-        router.push("/");
-      }
+      await authAPI.login(
+        { ...values },
+        (res) => {
+          dispatch(login(res.data));
+          router.push("/");
+        },
+        (error) => {
+          setLoginFail({ status: true, message: error.response.data.message });
+        }
+      );
     },
   });
+
+  const { signIn, googleUser, isSigned } = useGoogleAuth();
+  const googleAuth = useGoogleAuth();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await authAPI.loginWithGoogle({
+        tokenId: googleAuth.googleUser.tokenId,
+      });
+      if (res.status === 200) {
+        dispatch(login(res.data));
+        googleAuth.signOut();
+        router.push("/");
+      }
+    };
+    if (googleAuth.isSignedIn) fetchData();
+  }, [googleAuth.isSignedIn]);
 
   return (
     <>
@@ -69,6 +98,11 @@ export default function LoginPage() {
                   Forgot Password?
                 </a>
               </div>
+              {loginFail.status && (
+                <p className="text-center text-red-500 mt-4">
+                  {loginFail.message}
+                </p>
+              )}
               <button
                 type="submit"
                 className="w-full block bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-400 text-white font-semibold rounded-lg
@@ -82,7 +116,10 @@ export default function LoginPage() {
               type="button"
               className="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-lg px-4 py-3 border border-gray-300"
             >
-              <div className="flex items-center justify-center">
+              <div
+                className="flex items-center justify-center cursor-pointer"
+                onClick={googleAuth.signIn}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xmlnsXlink="http://www.w3.org/1999/xlink"

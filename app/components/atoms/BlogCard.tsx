@@ -1,3 +1,4 @@
+import router from "next/router";
 import React from "react";
 import BookmarkButton from "./BookmarkButton";
 import Tag from "./Tag";
@@ -14,7 +15,6 @@ export default function BlogCard({
   hasBookmarked,
 }) {
   return (
-    //   w-[350px] h-[360px]
     <div className="rounded-2xl box-shadow ">
       <div className="w-full h-40 overflow-hidden rounded-t-2xl ">
         <img
@@ -28,7 +28,12 @@ export default function BlogCard({
       </div> */}
       <div className="p-4 h-[216px] flex flex-col justify-between gap-2">
         <p className="uppercase text-xs font-bold text-red-500">{tag}</p>
-        <p className="line-clamp-2 text-xl font-semibold h-14">{title}</p>
+        <p
+          className="line-clamp-2 text-xl font-semibold h-14 cursor-pointer"
+          onClick={() => router.push("/blog/" + _id)}
+        >
+          {title}
+        </p>
         <p className="line-clamp-3 text-gray-400 h-18">{description}</p>
         {/* <div dangerouslySetInnerHTML={{ __html: content }} /> */}
 

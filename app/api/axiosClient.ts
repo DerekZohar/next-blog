@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 // Set up default config for http requests here
 
 const axiosClient = axios.create({
@@ -15,13 +16,32 @@ axiosClient.interceptors.request.use(async (config) => {
   return config;
 });
 // axiosClient.defaults.timeout = 20000;
-axios.interceptors.response.use(
+axiosClient.interceptors.response.use(
   (response) => {
-    if (response.status === 401) {
-      console.log("You are not authorized");
-    }
     return response;
   },
-  (error) => {}
+  (error) => {
+    if (error.response.status === 401 || error.response.status === 403) {
+      toast.warn("You are not logged in!", {
+        position: "top-center",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    toast.warn(error.response.data.message, {
+      position: "top-center",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    return error;
+  }
 );
 export default axiosClient;

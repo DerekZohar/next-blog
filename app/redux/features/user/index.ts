@@ -3,9 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    // token: "",
-    // refreshToken: "",
-    // info: {},
+    accessToken: "",
+    refreshToken: "",
+    avatarUrl: "",
+    fullName: "",
     email: "",
     roles: [],
   },
@@ -24,10 +25,13 @@ export const userSlice = createSlice({
     // },
 
     login: (state, action) => {
+      console.log(action.payload);
       state = { ...action.payload };
       return state;
     },
     logout: (state) => {
+      state.accessToken = "";
+      state.refreshToken = "";
       state.email = "";
       state.roles = [];
 

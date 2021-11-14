@@ -1,5 +1,5 @@
 import { authAPI } from "app/api/modules/authAPI";
-import { logout } from "app/redux/features/user";
+import { login, logout } from "app/redux/features/user";
 import jwt_decode from "jwt-decode";
 import React, { useEffect } from "react";
 import { useCookies } from "react-cookie";
@@ -20,7 +20,10 @@ export default function AuthProvider(props) {
       }
     };
 
-    fetchInfo();
+    if (cookies.jwt !== undefined) {
+      fetchInfo();
+      dispatch(login(cookies.jwt));
+    }
   }, []);
 
   return <div className="flex-grow">{props.children}</div>;

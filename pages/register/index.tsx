@@ -14,10 +14,12 @@ export default function LoginPage() {
       email: "",
       password: "",
       confirmPassword: "",
+      fullName: "",
+      type: "local",
     },
     onSubmit: async (values) => {
-      const { email, password } = values;
-      const res = await authAPI.register({ email, password });
+      const { confirmPassword, ...info } = values;
+      const res = await authAPI.register(info);
       if (res.status === 201) {
         dispatch(saveEmail(values.email));
         router.push("/verify-email");
@@ -46,6 +48,18 @@ export default function LoginPage() {
                   value={formik.values.email}
                   onChange={formik.handleChange}
                   placeholder="Enter Email Address"
+                  className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-gray-700">Full name</label>
+                <input
+                  type="string"
+                  name="fullName"
+                  id="fullName"
+                  value={formik.values.fullName}
+                  onChange={formik.handleChange}
+                  placeholder="Enter Full name"
                   className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
                 />
               </div>
