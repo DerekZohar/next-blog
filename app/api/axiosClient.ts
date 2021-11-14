@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 // Set up default config for http requests here
 
 const axiosClient = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://blogify-dz.herokuapp.com/",
   headers: {
     "content-type": "application/json",
   },
