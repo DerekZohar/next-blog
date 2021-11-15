@@ -11,7 +11,6 @@ import { useSelector } from "react-redux";
 //     author,
 //   }
 const AuthorInfo = (props) => {
-  console.log(props);
   return (
     <div className="flex flex-row items-center w-[200px]">
       <img
@@ -75,11 +74,16 @@ export default function BlogDetail(props) {
           </span>
         </p> */}
       </div>
-      <img
-        src={blogInfo.imgUrl}
-        alt=""
-        className="w-full h-[500px] rounded-xl object-cover"
-      />
+      {blogInfo.imgUrl ? (
+        <img
+          src={blogInfo.imgUrl}
+          alt=""
+          className="w-full h-[500px] rounded-xl object-cover"
+        />
+      ) : (
+        <div className="w-full h-[500px] rounded-xl bg-gray-200 animate-pulse"></div>
+      )}
+
       <p className="text-3xl font-bold">{blogInfo.title}</p>
       <AuthorInfo {...blogInfo.author} />
       <div dangerouslySetInnerHTML={{ __html: blogInfo.content }} />

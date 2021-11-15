@@ -22,7 +22,7 @@ export const blogAPI = {
     return axiosClient.post("/blogs", blog);
   },
   updateBlog: (id, blog) => {
-    return axiosClient.put(`/blogs/${id}`, blog);
+    return axiosClient.patch(`/blogs/${id}`, blog);
   },
   deleteBlog: (id) => {
     return axiosClient.delete(`/blogs/${id}`);

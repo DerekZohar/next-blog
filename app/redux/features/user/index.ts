@@ -25,7 +25,6 @@ export const userSlice = createSlice({
     // },
 
     login: (state, action) => {
-      console.log(action.payload);
       state = { ...action.payload };
       return state;
     },

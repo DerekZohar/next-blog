@@ -3,19 +3,16 @@ import { toast } from "react-toastify";
 // Set up default config for http requests here
 
 const axiosClient = axios.create({
-  baseURL: "https://blogify-dz.herokuapp.com/",
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   headers: {
     "content-type": "application/json",
   },
   withCredentials: true,
-  //   paramsSerializer: (params) => queryString.stringify(params),
 });
-// axios.defaults.withCredentials = true;
 axiosClient.interceptors.request.use(async (config) => {
   // Handle token here ...
   return config;
 });
-// axiosClient.defaults.timeout = 20000;
 axiosClient.interceptors.response.use(
   (response) => {
     return response;

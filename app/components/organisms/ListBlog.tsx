@@ -5,6 +5,7 @@ import Loading from "app/components/atoms/Loading";
 import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useSelector } from "react-redux";
+import { PopUp } from "../atoms/DeleteBlogButton";
 
 export default function ListBlog({ type }) {
   const user = useSelector((state: any) => state.user);

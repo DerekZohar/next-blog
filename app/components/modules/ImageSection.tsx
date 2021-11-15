@@ -6,6 +6,7 @@ export default function ImageSection({
   formik,
 }) {
   const [hasUploadActive, HasUploadActive] = useState(false);
+
   return (
     <div>
       <div className="mb-3">

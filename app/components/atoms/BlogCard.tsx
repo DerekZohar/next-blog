@@ -1,6 +1,7 @@
 import router from "next/router";
 import React from "react";
 import BookmarkButton from "./BookmarkButton";
+import DeleteBlogButton from "./DeleteBlogButton";
 import Tag from "./Tag";
 import UpVoteButton from "./UpVoteButton";
 
@@ -28,11 +29,15 @@ export default function BlogCard({
       </div> */}
       <div className="p-4 h-[216px] flex flex-col justify-between gap-2">
         <p className="uppercase text-xs font-bold text-red-500">{tag}</p>
-        <p
-          className="line-clamp-2 text-xl font-semibold h-14 cursor-pointer"
-          onClick={() => router.push("/blog/" + _id)}
-        >
-          {title}
+        <p className="line-clamp-2 text-xl font-semibold h-14 cursor-pointer">
+          <a
+            href={"/blog/" + _id}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-black"
+          >
+            {title}
+          </a>
         </p>
         <p className="line-clamp-3 text-gray-400 h-18">{description}</p>
         {/* <div dangerouslySetInnerHTML={{ __html: content }} /> */}
@@ -58,6 +63,25 @@ export default function BlogCard({
             </svg>
           </div>
           <BookmarkButton hasBookmarked={hasBookmarked} blogId={_id} />
+
+          {router.pathname === "/collection" && (
+            <div
+              className="hover:bg-red-100 text-red-400 rounded-lg cursor-pointer"
+              onClick={() => router.push(`/blog/${_id}/edit`)}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-8 w-8 p-1"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+              </svg>
+            </div>
+          )}
+          {router.pathname === "/collection" && (
+            <DeleteBlogButton blogId={_id} />
+          )}
         </div>
       </div>
     </div>

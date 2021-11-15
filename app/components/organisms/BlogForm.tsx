@@ -5,7 +5,7 @@ import ImageSection from "app/components/modules/ImageSection";
 import { useFormik } from "formik";
 import dynamic from "next/dynamic";
 import router from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Select from "react-select";
 
@@ -22,17 +22,11 @@ const FroalaEditorComponent = dynamic(
     ssr: false,
   }
 );
-export const getServerSideProps = async ({ params }) => {
-  const res = await blogAPI.getBlogById(params.id);
-  if (res.status === 200) return { props: { ...res.data } };
-  return {
-    props: { id: params.id },
-  };
-};
-export default function AddNewBlog(props) {
-  const [content, setContent] = useState(props.content);
+
+export default function BlogForm({ type }) {
+  const [content, setContent] = useState("");
   const [imageFile, setImageFile] = useState(null);
-  const [previewSource, setPreviewSource] = useState(props.imgUrl);
+  const [previewSource, setPreviewSource] = useState("");
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -44,30 +38,30 @@ export default function AddNewBlog(props) {
 
   const formik = useFormik({
     initialValues: {
-      title: props.title,
-      description: props.description,
+      title: "",
+      description: "",
       content: content,
-      tags: props.tags,
-      imgUrl: props.imgUrl,
+      tags: [],
+      imgUrl: "",
     },
     onSubmit: async (values) => {
-      if (values.imgUrl !== previewSource) {
+      if (values.imgUrl === "") {
         const imageRes: any = await imageAPI.uploadImage(imageFile);
-        const res = await blogAPI.updateBlog(props._id, {
+        const res = await blogAPI.createBlog({
           ...values,
           content,
           imgUrl: imageRes.data.url ? imageRes.data.url : "",
         });
-        if (res.status === 200) {
-          router.push("/" + props._id);
+        if (res.status === 201) {
+          router.push("/" + res.data.id);
         }
       } else {
-        const res = await blogAPI.updateBlog(props._id, {
+        const res = await blogAPI.createBlog({
           ...values,
           content,
         });
-        if (res.status === 200) {
-          router.push("/blog/" + props._id);
+        if (res.status === 201) {
+          router.push("/blog/" + res.data.id);
         }
       }
     },
