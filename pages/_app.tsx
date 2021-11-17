@@ -41,7 +41,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               ) : (
                 <Component {...pageProps} />
               )}
-              {/* <div className="h-[500px]"></div> */}
+              <div className="h-12"></div>
             </AuthProvider>
           </CookiesProvider>
         </PersistGate>

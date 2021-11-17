@@ -29,5 +29,10 @@ export default function BlogTagSelection() {
     { value: "vanilla", label: "Vanilla" },
   ];
 
-  return <Select styles={customStyles} options={options} />;
+  return (
+    <div>
+      <p className="blog-title">Category</p>
+      <Select styles={customStyles} options={options} />
+    </div>
+  );
 }

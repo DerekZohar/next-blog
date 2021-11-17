@@ -37,33 +37,33 @@ export default function Navbar() {
           />
         </div>
       </div>
-      <div className="flex gap-4">
-        <Link href="/post" passHref>
-          <button
-            className="flex gap-2 items-center
-          py-2 px-4 bg-blue-600 hover:bg-blue-700 
-        text-white transition ease-in duration-200 
-          text-center text-base font-semibold shadow-md focus:outline-none f rounded-full"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
+
+      {/* notification icon */}
+
+      {user.accessToken ? (
+        <div className="flex gap-4">
+          <Link href="/post" passHref>
+            <button
+              className="flex gap-2 items-center
+        py-2 px-4 bg-blue-600 hover:bg-blue-700 
+      text-white transition ease-in duration-200 
+        text-center text-base font-semibold shadow-md focus:outline-none f rounded-full"
             >
-              <path
-                fillRule="evenodd"
-                d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                clipRule="evenodd"
-              />
-            </svg>
-            Add new blog
-          </button>
-        </Link>
-
-        {/* notification icon */}
-
-        {user.accessToken ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              Add new blog
+            </button>
+          </Link>
           <div className="flex gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -82,19 +82,19 @@ export default function Navbar() {
               className="h-10 w-10 rounded-full object-cover cursor-pointer"
             />
           </div>
-        ) : (
-          <Link href="/login" passHref>
-            <button
-              className="flex gap-2 items-center
-          py-2 px-4 bg-blue-600 hover:bg-blue-700
+        </div>
+      ) : (
+        <Link href="/login" passHref>
+          <button
+            className="flex gap-2 items-center
+          py-2 px-8 bg-blue-600 hover:bg-blue-700
         text-white transition ease-in duration-200
           text-center text-base font-semibold shadow-md focus:outline-none f rounded-full"
-            >
-              Login
-            </button>
-          </Link>
-        )}
-      </div>
+          >
+            Login
+          </button>
+        </Link>
+      )}
     </div>
   );
 }

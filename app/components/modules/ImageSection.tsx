@@ -9,6 +9,7 @@ export default function ImageSection({
 
   return (
     <div>
+      <p className="blog-title">Header Image</p>
       <div className="mb-3">
         <div className="relative inline-block w-10 mr-2 align-middle select-none">
           <input
@@ -24,7 +25,7 @@ export default function ImageSection({
             className="block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
           />
         </div>
-        <span className="text-gray-400 font-medium">Upload from Local</span>
+        <span className="text-gray-800 ">Upload from Local</span>
       </div>
       {hasUploadActive ? (
         <div>
@@ -45,7 +46,7 @@ export default function ImageSection({
           className=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 
         bg-white text-gray-700 placeholder-gray-400 rounded-lg text-base 
         focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparen"
-          placeholder="imgUrl"
+          // placeholder="imgUrl"
         />
       )}
     </div>

@@ -1,4 +1,5 @@
 import { blogAPI } from "app/api/modules/blogAPI";
+import Head from "next/head";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -66,6 +67,10 @@ export default function BlogDetail(props) {
   };
   return (
     <div className="w-full flex flex-col gap-4">
+      <Head>
+        <title>{blogInfo.title}</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div>
         {/* <p className="uppercase text-xs font-bold text-red-500">
           Business{" "}

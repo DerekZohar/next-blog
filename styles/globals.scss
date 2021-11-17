@@ -8,6 +8,9 @@
   .ease-in-trans {
     @apply transition duration-200 ease-in;
   }
+  .blog-title {
+    @apply text-base font-semibold mb-2;
+  }
 }
 
 .box-shadow {

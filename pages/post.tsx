@@ -82,46 +82,57 @@ export default function AddNewBlog(props) {
 
   return (
     <form className="flex flex-col gap-4" onSubmit={formik.handleSubmit}>
-      <input
-        type="text"
-        id="title"
-        name="title"
-        value={formik.values.title}
-        onChange={formik.handleChange}
-        className=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 
+      <div>
+        <p className="blog-title">Title of Blog</p>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          value={formik.values.title}
+          onChange={formik.handleChange}
+          className=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 
         bg-white text-gray-700 placeholder-gray-400 rounded-lg text-base 
         focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparen"
-        placeholder="Title"
-      />
+          // placeholder="Title"
+        />
+      </div>
       <BlogTagSelection />
       <ImageSection
         previewSource={previewSource}
         handleImageChange={handleImageChange}
         formik={formik}
       />
-      <label className="text-gray-700">
-        <textarea
-          className="flex-1 appearance-none border border-gray-300 w-full py-2 px-4 
+
+      <div>
+        <p className="blog-title">Description</p>
+        <label className="text-gray-700">
+          <textarea
+            className="flex-1 appearance-none border border-gray-300 w-full py-2 px-4 
           bg-white text-gray-700 placeholder-gray-400 rounded-lg text-base 
           focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-          id="description"
-          placeholder="Enter your description"
-          name="description"
-          value={formik.values.description}
-          onChange={formik.handleChange}
-          rows={5}
-          cols={40}
-        ></textarea>
-      </label>
-      <FroalaEditorComponent
-        tag="textarea"
-        config={{
-          placeholderText: "Edit Your Content Here!",
-          charCounterCount: true,
-        }}
-        model={content}
-        onModelChange={(model) => setContent(model)}
-      />
+            id="description"
+            // placeholder="Example: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            name="description"
+            value={formik.values.description}
+            onChange={formik.handleChange}
+            rows={5}
+            cols={40}
+          ></textarea>
+        </label>
+      </div>
+
+      <div>
+        <p className="blog-title">Content</p>
+        <FroalaEditorComponent
+          tag="textarea"
+          config={{
+            // placeholderText: "Edit Your Content Here!",
+            charCounterCount: true,
+          }}
+          model={content}
+          onModelChange={(model) => setContent(model)}
+        />
+      </div>
 
       <button
         className="w-[200px] py-2 px-6 bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 

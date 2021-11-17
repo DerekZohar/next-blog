@@ -35,9 +35,7 @@ export default function LoginPage() {
     },
   });
 
-  const { signIn, googleUser, isSigned } = useGoogleAuth();
   const googleAuth = useGoogleAuth();
-
   useEffect(() => {
     const fetchData = async () => {
       const res = await authAPI.loginWithGoogle({

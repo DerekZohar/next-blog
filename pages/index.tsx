@@ -1,12 +1,12 @@
 import { blogAPI } from "app/api/modules/blogAPI";
 import BlogCard from "app/components/atoms/BlogCard";
 import Loading from "app/components/atoms/Loading";
+import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useSelector } from "react-redux";
 
 export default function Home() {
-  const user = useSelector((state: any) => state.user);
   const [blogs, setBlogs] = useState([]);
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
@@ -37,6 +37,10 @@ export default function Home() {
 
   return (
     <div className="relative">
+      <Head>
+        <title>Home | Blogify</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <InfiniteScroll
         dataLength={blogs.length}
         next={fetchMoreData}
