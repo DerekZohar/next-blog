@@ -42,7 +42,7 @@ export default function LoginPage() {
         tokenId: googleAuth.googleUser.tokenId,
       });
       if (res.status === 200) {
-        setCookie("jwt", res.data, { path: "/" });
+        document.cookie = "jwt=" + res.data + ";path=/";
         dispatch(login(res.data));
         googleAuth.signOut();
         router.push("/");
