@@ -42,7 +42,8 @@ export default function LoginPage() {
         tokenId: googleAuth.googleUser.tokenId,
       });
       if (res.status === 200) {
-        document.cookie = "jwt=" + res.data + ";path=/";
+        document.cookie =
+          "jwt=123123123; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         dispatch(login(res.data));
         googleAuth.signOut();
         router.push("/");

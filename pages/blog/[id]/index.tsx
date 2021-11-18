@@ -71,14 +71,17 @@ export default function BlogDetail(props) {
         <title>{blogInfo.title}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <div>
-        {/* <p className="uppercase text-xs font-bold text-red-500">
+      {/* <div>
+        <p className="uppercase text-xs font-bold text-red-500">
           Business{" "}
           <span className="text-xs font-semibold text-gray-600">
             - 30 Jan 2021
           </span>
-        </p> */}
-      </div>
+        </p>
+      </div> */}
+      <AuthorInfo {...blogInfo.author} />
+      <p className="text-3xl font-bold">{blogInfo.title}</p>
+
       {blogInfo.imgUrl ? (
         <img
           src={blogInfo.imgUrl}
@@ -88,9 +91,6 @@ export default function BlogDetail(props) {
       ) : (
         <div className="w-full h-[500px] rounded-xl bg-gray-200 animate-pulse"></div>
       )}
-
-      <p className="text-3xl font-bold">{blogInfo.title}</p>
-      <AuthorInfo {...blogInfo.author} />
       <div dangerouslySetInnerHTML={{ __html: blogInfo.content }} />
       <div className="w-full flex items-center justify-center">
         <form className="w-full bg-white pt-2">

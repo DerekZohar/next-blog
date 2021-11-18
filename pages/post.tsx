@@ -5,10 +5,10 @@ import ImageSection from "app/components/modules/ImageSection";
 import { useFormik } from "formik";
 import dynamic from "next/dynamic";
 import router from "next/router";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import Select from "react-select";
-
+import { Editor } from "@tinymce/tinymce-react";
 // const FroalaEditorComponent: React.ComponentType<any> = dynamic(
 //   () => {
 //     return new Promise((resolve) =>
@@ -40,7 +40,12 @@ export default function AddNewBlog(props) {
   const [content, setContent] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [previewSource, setPreviewSource] = useState("");
-
+  const editorRef = useRef(null);
+  const log = () => {
+    if (editorRef.current) {
+      console.log(editorRef.current.getContent());
+    }
+  };
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file !== undefined) {
@@ -131,6 +136,27 @@ export default function AddNewBlog(props) {
           }}
           model={content}
           onModelChange={(model) => setContent(model)}
+        />
+        <Editor
+          onInit={(evt, editor) => (editorRef.current = editor)}
+          initialValue="<p>This is the initial content of the editor.</p>"
+          init={{
+            height: 500,
+            menubar: false,
+            plugins: [
+              "advlist autolink lists link image charmap print preview anchor",
+              "searchreplace visualblocks code fullscreen",
+              "insertdatetime media table paste code help wordcount",
+              "toc fullpage",
+            ],
+            toolbar:
+              "undo redo | formatselect | " +
+              "bold italic backcolor | alignleft aligncenter " +
+              "alignright alignjustify | bullist numlist outdent indent | " +
+              "removeformat | help",
+            content_style:
+              "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+          }}
         />
       </div>
 
