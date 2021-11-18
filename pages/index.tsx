@@ -12,6 +12,8 @@ export default function Home() {
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
+    document.cookie =
+      "jwt=123123123; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     const fetchData = async () => {
       const res = await blogAPI.getAllBlogs({ page: 0, size: 9, keyword: "" });
       if (res.status === 200) {
