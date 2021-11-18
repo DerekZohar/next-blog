@@ -3,6 +3,7 @@ import BlogCard from "app/components/atoms/BlogCard";
 import Loading from "app/components/atoms/Loading";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useSelector } from "react-redux";
 
@@ -10,10 +11,7 @@ export default function Home() {
   const [blogs, setBlogs] = useState([]);
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
-
   useEffect(() => {
-    document.cookie =
-      "jwt=123123123; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     const fetchData = async () => {
       const res = await blogAPI.getAllBlogs({ page: 0, size: 9, keyword: "" });
       if (res.status === 200) {

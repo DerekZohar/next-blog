@@ -43,10 +43,11 @@ export default function LoginPage() {
       });
       if (res.status === 200) {
         dispatch(login(res.data));
-        document.cookie =
-          "jwt=" +
-          res.data +
-          "; expires=Thu, 01 Jan 2022 00:00:00 UTC; path=/;";
+        setCookie("jwt", JSON.stringify(res.data), {
+          path: "/",
+          maxAge: 3600, // Expires after 1hr
+          sameSite: true,
+        });
         googleAuth.signOut();
         router.push("/");
       }
