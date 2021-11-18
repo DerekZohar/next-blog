@@ -42,9 +42,11 @@ export default function LoginPage() {
         tokenId: googleAuth.googleUser.tokenId,
       });
       if (res.status === 200) {
-        document.cookie =
-          "jwt=123123123; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         dispatch(login(res.data));
+        document.cookie =
+          "jwt=" +
+          res.data +
+          "; expires=Thu, 01 Jan 2022 00:00:00 UTC; path=/;";
         googleAuth.signOut();
         router.push("/");
       }

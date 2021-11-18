@@ -16,7 +16,8 @@ import "../styles/globals.scss";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-
+  document.cookie =
+    "jwt=123123123; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   const listExclude = [
     "/login",
     "/register",
