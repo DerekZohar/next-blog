@@ -29,6 +29,7 @@ export default function LoginPage() {
             path: "/",
             maxAge: 3600, // Expires after 1hr
             sameSite: true,
+            secure: true,
           });
           dispatch(login(res.data));
           router.push("/");
