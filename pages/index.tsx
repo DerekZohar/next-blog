@@ -34,7 +34,6 @@ export default function Home() {
       setHasMore(res.data.length > 0);
     }
   };
-
   return (
     <div className="relative">
       <Head>

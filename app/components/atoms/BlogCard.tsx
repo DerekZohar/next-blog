@@ -28,7 +28,7 @@ export default function BlogCard({
         <img src={imageUrl} alt="This zooms-in really well and smooth" />
       </div> */}
       <div className="p-4 h-[216px] flex flex-col justify-between gap-2">
-        <p className="uppercase text-xs font-bold text-red-500">{tag}</p>
+        <p className="uppercase text-xs font-bold text-blue-500">{tag}</p>
         <p className="line-clamp-2 text-xl font-semibold h-14 cursor-pointer">
           <a
             href={"/blog/" + _id}

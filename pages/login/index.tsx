@@ -25,6 +25,11 @@ export default function LoginPage() {
       await authAPI.login(
         { ...values },
         (res) => {
+          setCookie("jwt", JSON.stringify(res.data), {
+            path: "/",
+            maxAge: 3600, // Expires after 1hr
+            sameSite: true,
+          });
           dispatch(login(res.data));
           router.push("/");
         },
@@ -41,13 +46,18 @@ export default function LoginPage() {
       const res = await authAPI.loginWithGoogle({
         tokenId: googleAuth.googleUser.tokenId,
       });
+      console.log(res);
+
       if (res.status === 200) {
         dispatch(login(res.data));
-        setCookie("jwt", JSON.stringify(res.data), {
-          path: "/",
-          maxAge: 3600, // Expires after 1hr
-          sameSite: true,
-        });
+        document.cookie = `jwt=${res.data.token}; path=/`;
+        router.push("/");
+
+        // setCookie("jwt", JSON.stringify(res.data), {
+        //   path: "/",
+        //   maxAge: 3600, // Expires after 1hr
+        //   sameSite: true,
+        // });
         googleAuth.signOut();
         router.push("/");
       }

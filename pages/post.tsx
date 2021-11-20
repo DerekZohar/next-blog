@@ -64,6 +64,7 @@ export default function AddNewBlog(props) {
     },
     onSubmit: async (values) => {
       if (values.imgUrl === "") {
+        console.log(123);
         const imageRes: any = await imageAPI.uploadImage(imageFile);
         const res = await blogAPI.createBlog({
           ...values,
