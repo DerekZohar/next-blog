@@ -4,7 +4,10 @@ import React, { useState } from "react";
 export default function UpVoteButton({ value, hasUpVoted, blogId }) {
   const [hasActive, setHasActive] = useState(hasUpVoted);
   const [numberOfUpVote, setNumberOfUpVote] = useState(value);
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleClick = async () => {
+    setIsLoading(true);
     if (!hasActive) {
       const res = await blogAPI.upVote(blogId);
       if (res.status === 200) {
@@ -18,12 +21,15 @@ export default function UpVoteButton({ value, hasUpVoted, blogId }) {
         setNumberOfUpVote(numberOfUpVote - 1);
       }
     }
+    setIsLoading(false);
   };
   return (
     <div
       className={`${
         hasActive ? "text-green-400 " : "text-gray-400"
-      } flex items-center gap-1 group cursor-pointer`}
+      } flex items-center gap-1 group cursor-pointer 
+      ${isLoading ? "opacity-50 cursor-not-allowed" : ""}
+      `}
       onClick={handleClick}
     >
       <svg

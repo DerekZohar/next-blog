@@ -3,7 +3,9 @@ import React, { useState } from "react";
 
 export default function BookmarkButton({ hasBookmarked, blogId }) {
   const [hasActive, setHasActive] = useState(hasBookmarked);
+  const [isLoading, setIsLoading] = useState(false);
   const handleClick = async () => {
+    setIsLoading(true);
     if (!hasActive) {
       const res = await blogAPI.bookmark(blogId);
       if (res.status === 200) {
@@ -15,13 +17,16 @@ export default function BookmarkButton({ hasBookmarked, blogId }) {
         setHasActive(false);
       }
     }
+    setIsLoading(false);
   };
   return (
     <div
       className={`${
         hasActive ? "text-yellow-400 " : "text-gray-400"
       } hover:text-yellow-400 hover:bg-yellow-100 flex items-center gap-1 
-      rounded-lg group cursor-pointer`}
+      rounded-lg group cursor-pointer 
+      ${isLoading ? "opacity-50 cursor-not-allowed" : ""}
+      `}
       onClick={handleClick}
     >
       <svg
