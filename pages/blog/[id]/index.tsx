@@ -1,8 +1,8 @@
 import { blogAPI } from "app/api/modules/blogAPI";
 import RelativeBlog from "app/components/modules/RelativeBlog";
+import moment from "moment";
 import Head from "next/head";
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
 
 // {
 //     tag,
@@ -26,17 +26,13 @@ const AuthorInfo = (props) => {
       <div className="flex flex-col">
         <div className="flex gap-2">
           <p className="text-sm font-bold text-gray-600">{props?.fullName}</p>
-          <button className="px-2 bg-blue-600 text-white text-xs rounded-full">
+          {/* <button className="px-2 bg-blue-600 text-white text-xs rounded-full">
             Follow+
-          </button>
+          </button> */}
         </div>
         <p className="text-xs font-bold text-gray-400">
-          Blogs: {props.numberOfBlog}
+          Published on {moment(props.createdAt).format("MMM Do YY")}
         </p>
-        {/* <p className="text-xs">
-          Posted{" "}
-          <span className="font-semibold text-gray-600">30 Jan 2021</span>{" "}
-        </p> */}
       </div>
     </div>
   );
@@ -54,7 +50,7 @@ export default function BlogDetail(props) {
   useEffect(() => {
     const fetchData = async () => {
       const res = await blogAPI.getBlogById(props.id);
-      setBlogInfo(res.data);
+      if (res.status === 200) setBlogInfo(res.data);
     };
     fetchData();
   }, []);

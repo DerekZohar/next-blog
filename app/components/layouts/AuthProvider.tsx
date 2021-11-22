@@ -1,5 +1,5 @@
 import { authAPI } from "app/api/modules/authAPI";
-import { logout } from "app/redux/features/user";
+import { logout, resetToken } from "app/redux/features/user";
 import jwt_decode from "jwt-decode";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,16 +15,16 @@ export default function AuthProvider(props) {
         dispatch(logout());
       } else {
         //handle jwt expire
-        var exp = jwt_decode(user.token)["exp"];
+        var exp = jwt_decode(user.accessToken)["exp"];
         if (exp <= new Date().getTime() / 1000) {
           const res = await authAPI.resetToken(user.refreshToken);
           if (res.status === 200) {
-            // dispatch(getAccessToken(res.data.accessToken));
+            dispatch(resetToken(res.data.accessToken));
           }
         }
       }
     };
-    if (user.token !== "") fetchInfo();
+    if (user.accessToken !== "") fetchInfo();
   }, []);
 
   return <div className="flex-grow">{props.children}</div>;

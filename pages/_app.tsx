@@ -1,6 +1,6 @@
+import AuthProvider from "app/components/layouts/AuthProvider";
 import Navbar from "app/components/modules/Navbar";
 import VerticalNav from "app/components/modules/VerticalNav";
-import AuthProvider from "app/components/organisms/AuthProvider";
 import { GoogleAuthProvider } from "app/components/organisms/GoogleProvider";
 import { persistor, store } from "app/redux/store";
 import "froala-editor/css/froala_editor.pkgd.min.css";

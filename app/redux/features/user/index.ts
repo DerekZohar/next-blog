@@ -19,10 +19,10 @@ export const userSlice = createSlice({
       state.email = "";
       return state;
     },
-    // getAccessToken: (state, action) => {
-    //   state.token = action.payload;
-    //   return state;
-    // },
+    resetToken: (state, action) => {
+      state.accessToken = action.payload;
+      return state;
+    },
 
     login: (state, action) => {
       state = { ...action.payload };
@@ -40,5 +40,6 @@ export const userSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { saveEmail, removeEmail, login, logout } = userSlice.actions;
+export const { saveEmail, removeEmail, login, logout, resetToken } =
+  userSlice.actions;
 export default userSlice.reducer;
