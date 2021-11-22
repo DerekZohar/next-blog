@@ -1,3 +1,4 @@
+import { getAccessToken } from "app/redux/store";
 import axios from "axios";
 import { toast } from "react-toastify";
 // Set up default config for http requests here
@@ -7,12 +8,18 @@ const axiosClient = axios.create({
   headers: {
     "content-type": "application/json",
   },
-  withCredentials: true,
+  // withCredentials: true,
 });
-axiosClient.interceptors.request.use(async (config) => {
-  // Handle token here ...
-  return config;
-});
+
+axiosClient.interceptors.request.use(
+  (config) => {
+    const token = getAccessToken();
+    const auth = token ? `Bearer ${token}` : "";
+    config.headers.common["Authorization"] = auth;
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 axiosClient.interceptors.response.use(
   (response) => {
     return response;

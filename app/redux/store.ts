@@ -40,4 +40,9 @@ const store = configureStore({
 // sagaMiddleware.run(rootSaga);
 let persistor = persistStore(store);
 
+export function getAccessToken(): any {
+  const state: any = store.getState();
+  return state.user.accessToken;
+}
+
 export { store, persistor };

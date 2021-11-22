@@ -17,11 +17,14 @@ export default function ListBlog({ type }) {
   useEffect(() => {
     const fetchData = async () => {
       if (type === "bookmark") {
-        const res = await blogAPI.getBookmarkBlogs({
-          page: 0,
-          size: 9,
-          keyword: "",
-        });
+        const res = await blogAPI.getBookmarkBlogs(
+          {
+            page: 0,
+            size: 9,
+            keyword: "",
+          },
+          user.accessToken
+        );
         if (res.status === 200) {
           setBlogs(res.data);
           if (res.data.length === 0) {
@@ -47,11 +50,14 @@ export default function ListBlog({ type }) {
 
   const fetchMoreData = async () => {
     if (type === "bookmark") {
-      const res = await blogAPI.getBookmarkBlogs({
-        page: page + 1,
-        size: 9,
-        keyword: "",
-      });
+      const res = await blogAPI.getBookmarkBlogs(
+        {
+          page: page + 1,
+          size: 9,
+          keyword: "",
+        },
+        user.accessToken
+      );
       if (res.status === 200) {
         setBlogs([...blogs, ...res.data]);
         setPage(page + 1);
