@@ -41,6 +41,7 @@ export default function AddNewBlog(props) {
   const [imageFile, setImageFile] = useState(null);
   const [previewSource, setPreviewSource] = useState("");
   const editorRef = useRef(null);
+  const [tagsBlog, setTagsBlog] = useState<any>([]);
   const log = () => {
     if (editorRef.current) {
       console.log(editorRef.current.getContent());
@@ -63,11 +64,11 @@ export default function AddNewBlog(props) {
       imgUrl: "",
     },
     onSubmit: async (values) => {
-      if (values.imgUrl === "") {
-        console.log(123);
+      if (previewSource !== "") {
         const imageRes: any = await imageAPI.uploadImage(imageFile);
         const res = await blogAPI.createBlog({
           ...values,
+          tags: [tagsBlog.value],
           content,
           imgUrl: imageRes.data.url ? imageRes.data.url : "",
         });
@@ -77,6 +78,7 @@ export default function AddNewBlog(props) {
       } else {
         const res = await blogAPI.createBlog({
           ...values,
+          tags: tagsBlog.value,
           content,
         });
         if (res.status === 201) {
@@ -102,7 +104,7 @@ export default function AddNewBlog(props) {
           // placeholder="Title"
         />
       </div>
-      <BlogTagSelection />
+      <BlogTagSelection tags={tagsBlog} setTags={setTagsBlog} />
       <ImageSection
         previewSource={previewSource}
         handleImageChange={handleImageChange}
@@ -138,7 +140,7 @@ export default function AddNewBlog(props) {
           model={content}
           onModelChange={(model) => setContent(model)}
         />
-        <Editor
+        {/* <Editor
           onInit={(evt, editor) => (editorRef.current = editor)}
           initialValue="<p>This is the initial content of the editor.</p>"
           init={{
@@ -158,7 +160,7 @@ export default function AddNewBlog(props) {
             content_style:
               "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
           }}
-        />
+        /> */}
       </div>
 
       <button

@@ -6,6 +6,7 @@ export const blogAPI = {
   unUpVote: (id: string) => axiosClient.delete("/blogs/up-vote/" + id),
   bookmark: (id: string) => axiosClient.post("/blogs/bookmark/" + id),
   unBookmark: (id: string) => axiosClient.delete("/blogs/bookmark/" + id),
+  getAllTags: () => axiosClient.get("/blogs/tags"),
   getAllBlogs: (filters) => {
     return axiosClient.post("/blogs/all", filters);
   },
